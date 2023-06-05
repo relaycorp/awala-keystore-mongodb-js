@@ -10,7 +10,7 @@ import {
 
 import { PeerPublicKeyData } from './models';
 import { MongoPublicKeyStore } from './MongoPublicKeyStore';
-import {setUpTestDBConnection} from "../testUtils/db.js";
+import { setUpTestDBConnection } from '../testUtils/db';
 
 const getConnection = setUpTestDBConnection();
 

@@ -1,3 +1,5 @@
+// tslint:disable:max-classes-per-file
+
 import { index, prop } from '@typegoose/typegoose';
 
 const SECONDS_IN_A_DAY = 86400;
