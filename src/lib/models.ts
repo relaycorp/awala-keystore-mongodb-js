@@ -19,6 +19,17 @@ export class CertificationPath {
   public expiryDate!: Date;
 }
 
+export class IdentityPublicKeyData {
+  @prop({ required: true, unique: true })
+  public peerId!: string;
+
+  @prop({ required: true })
+  public keyDer!: Buffer;
+}
+
+/**
+ * **Session** key.
+ */
 export class PeerPublicKeyData {
   protected static TTL_DAYS = 30;
 
