@@ -42,16 +42,22 @@ export class MongoCertificateStore extends CertificateStore {
       .exec();
   }
 
-  protected async retrieveLatestSerialization(subjectId: string): Promise<ArrayBuffer | null> {
+  protected async retrieveLatestSerialization(
+    subjectId: string,
+    issuerId: string,
+  ): Promise<ArrayBuffer | null> {
     const record = await this.certificateModel
-      .findOne({ subjectId })
+      .findOne({ subjectId, issuerId })
       .sort({ expiryDate: -1 })
       .exec();
     return record ? bufferToArrayBuffer(record.pathSerialized) : null;
   }
 
-  protected async retrieveAllSerializations(subjectId: string): Promise<readonly ArrayBuffer[]> {
-    const records = await this.certificateModel.find({ subjectId }).exec();
+  protected async retrieveAllSerializations(
+    subjectId: string,
+    issuerId: string,
+  ): Promise<readonly ArrayBuffer[]> {
+    const records = await this.certificateModel.find({ subjectId, issuerId }).exec();
     return records.map((r) => bufferToArrayBuffer(r.pathSerialized));
   }
 }

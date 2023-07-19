@@ -144,6 +144,13 @@ describe('retrieveLatestSerialization', () => {
       newestCertificate.isEqual(p.leafCertificate),
     );
   });
+
+  test('Certificate from different issuer should be ignored', async () => {
+    await store.save(validCertificationPath, subjectId);
+    const issuerId = `not-${subjectId}`;
+
+    await expect(store.retrieveLatest(subjectId, issuerId)).resolves.toBeNull();
+  });
 });
 
 describe('retrieveAllSerializations', () => {
@@ -185,6 +192,13 @@ describe('retrieveAllSerializations', () => {
 
     expect(allCertificates).toHaveLength(1);
     expect(allCertificates[0].leafCertificate.isEqual(validCertificate)).toBeTrue();
+  });
+
+  test('Certificate from different issuer should be ignored', async () => {
+    await store.save(validCertificationPath, subjectId);
+    const issuerId = `not-${subjectId}`;
+
+    await expect(store.retrieveAll(subjectId, issuerId)).resolves.toBeEmpty();
   });
 });
 
