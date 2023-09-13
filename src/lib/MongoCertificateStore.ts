@@ -24,17 +24,14 @@ export class MongoCertificateStore extends CertificateStore {
     subjectCertificateExpiryDate: Date,
     issuerId: string,
   ): Promise<void> {
-    const record: CertificationPath = {
+    const data: CertificationPath = {
       expiryDate: subjectCertificateExpiryDate,
       issuerId,
       pathSerialized: Buffer.from(subjectCertificateSerialized),
       subjectId,
     };
-    await this.certificateModel
-      .updateOne({ issuerId, subjectId, expiryDate: subjectCertificateExpiryDate }, record, {
-        upsert: true,
-      })
-      .exec();
+    const document = await this.certificateModel.create(data);
+    await this.certificateModel.bulkSave([document]);
   }
 
   protected async retrieveLatestSerialization(
