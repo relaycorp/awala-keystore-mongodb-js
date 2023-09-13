@@ -31,14 +31,9 @@ export class MongoCertificateStore extends CertificateStore {
       subjectId,
     };
     await this.certificateModel
-      .updateOne(
-        {
-          expiryDate: subjectCertificateExpiryDate,
-          subjectId,
-        },
-        record,
-        { upsert: true },
-      )
+      .updateOne({ issuerId, subjectId, expiryDate: subjectCertificateExpiryDate }, record, {
+        upsert: true,
+      })
       .exec();
   }
 
