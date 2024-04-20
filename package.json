@@ -35,7 +35,7 @@
   },
   "dependencies": {
     "@relaycorp/relaynet-core": ">=1.81.6, < 2.0",
-    "@typegoose/typegoose": "^12.3.0",
+    "@typegoose/typegoose": "^12.3.1",
     "mongoose": "^8.2.4"
   },
   "peerDependencies": {
